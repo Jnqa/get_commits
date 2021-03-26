@@ -1,8 +1,13 @@
 name: 'Check all commits'
 description: 'no description'
 inputs:
+  git_actor:
+    required: true
   git_token:
     description: 'token for access in private repos'
+    requred: true
+  repos:
+    description: 'repos to read'
     requred: true
 outputs:
   result: 
@@ -14,9 +19,9 @@ runs:
     - name: Get json
       shell: bash
       run: |
-        curl -u "${{ github.actor }}:${{ inputs.git_token }}" \
+        curl -u "${{ inputs.actor }}:${{ inputs.git_token }}" \
           -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/jnqa/ttest/commits > commits.json
+          https://api.github.com/repos/${{ inputs.repos }}/commits > commits.json
         which jq || sudo apt install jq -y
         cat commits.json
-        cat commits.json | jq .[0]
+        cat commits.json | jq .[0] || echo bad
