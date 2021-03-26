@@ -19,7 +19,7 @@ runs:
     - name: Get json
       shell: bash
       run: |
-        git log --pretty=oneline v0.0.3..v1.8.5
+        git log --pretty=oneline v0.0.1..v0.0.2
         # echo "actor:${{ inputs.actor }}"
         # echo "repos:repos/${{ inputs.repos }}/commits"
         # curl -u "${{ inputs.actor }}:${{ inputs.git_token }}" \
