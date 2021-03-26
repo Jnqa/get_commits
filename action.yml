@@ -17,4 +17,15 @@ runs:
         curl -u "${{ github.actor }}:${{ inputs.git_token }}" \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/jnqa/ttest/commits > commits.json
-        python3 reformat.py
+        cat << EOF > /tmp/reformat.py
+        These contents will be written to the file.
+        import json
+        import sys
+        report = ""
+        with open('test.json', 'r', encoding='utf-8') as t:
+            all_commits = json.load(t)
+        for i in all_commits:
+            report=f"{report}{i['commit']['author']['name']}:{i['commit']['message']}\n"
+        print(report)
+        EOF
+        python3 /tmp/reformat.py
