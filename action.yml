@@ -19,11 +19,11 @@ runs:
     - name: Get json
       shell: bash
       run: |
-        echo "actor:${{ inputs.actor }}"
-        echo "repos:repos/${{ inputs.repos }}/commits"
-        curl -u "${{ inputs.actor }}:${{ inputs.git_token }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ inputs.repos }}/commits > commits.json
-        which jq || sudo apt install jq -y
-        cat commits.json
-        cat commits.json | jq .[0] || echo bad
+        git log --pretty=oneline v0.0.3..v1.8.5
+        # echo "actor:${{ inputs.actor }}"
+        # echo "repos:repos/${{ inputs.repos }}/commits"
+        # curl -u "${{ inputs.actor }}:${{ inputs.git_token }}" \
+        #   -H "Accept: application/vnd.github.v3+json" \
+        #   https://api.github.com/repos/${{ inputs.repos }}/commits > commits.json
+        # which jq || sudo apt install jq -y
+        # cat commits.json | jq .[0] || echo bad
